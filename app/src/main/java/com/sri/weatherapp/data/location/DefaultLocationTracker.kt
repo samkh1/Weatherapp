@@ -15,7 +15,7 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 
 @ExperimentalCoroutinesApi
-class LocationTracker_Imp @Inject constructor(
+class DefaultLocationTracker @Inject constructor(
     private val locationClient: FusedLocationProviderClient,
     private val application: Application,
 ) : LocationTracker {
@@ -32,7 +32,7 @@ class LocationTracker_Imp @Inject constructor(
 
         val locationManager = application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
-                locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         if (!hasAccessCoarseLocationPermission || !hasAccessFineLocationPermission || !isGpsEnabled) {
             return null
         }
