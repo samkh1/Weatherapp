@@ -27,7 +27,7 @@ class WeatherViewModel @Inject constructor(
 
     fun loadTempurature() {
         viewModelScope.launch {
-            state.copy(isLoading = true)
+            state = state.copy(isLoading = true)
             location.getCurrentLocation()?.let {
                 when (val result = repository.getWeather(it.latitude, it.longitude)) {
                     is Ressource.Success -> {
@@ -47,7 +47,7 @@ class WeatherViewModel @Inject constructor(
                     }
                 }
             } ?: kotlin.run {
-                state.copy(
+                state = state.copy(
                     weatherData = null,
                     isLoading = false,
                     isError = "No location found!",
